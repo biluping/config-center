@@ -16,11 +16,6 @@ public class TableMetadata {
     private String tableName;
 
     /**
-     * 主键
-     */
-    private PrimaryKeyColumnMetadata primaryKeyMetadata;
-
-    /**
      * 列信息
      */
     private List<ColumnMetadata> columnMetadataList;

@@ -10,8 +10,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PrimaryKeyColumnMetadata extends ColumnMetadata {
 
-    /**
-     * 是否自增
-     */
-    private Boolean isAutoIncrement;
+
 }

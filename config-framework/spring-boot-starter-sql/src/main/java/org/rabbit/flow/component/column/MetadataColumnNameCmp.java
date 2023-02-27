@@ -1,5 +1,6 @@
 package org.rabbit.flow.component.column;
 
+import cn.hutool.core.util.StrUtil;
 import org.rabbit.metadata.ColumnMetadata;
 
 import java.lang.reflect.Field;
@@ -11,6 +12,6 @@ public class MetadataColumnNameCmp extends ColumnMetadataBuildCmp {
     @Override
     void parse(ColumnMetadata columnMetadata, Field field) {
         // 列名
-        columnMetadata.setColumnName(field.getName());
+        columnMetadata.setColumnName(StrUtil.toUnderlineCase(field.getName()));
     }
 }

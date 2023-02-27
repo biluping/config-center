@@ -3,6 +3,7 @@ package org.rabbit.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.rabbit.annotations.ColumnComment;
 import org.rabbit.annotations.ColumnLen;
 
 @Data
@@ -10,9 +11,11 @@ import org.rabbit.annotations.ColumnLen;
 @EqualsAndHashCode(callSuper = true)
 public class ProjectEntity extends BaseEntity {
 
+    @ColumnComment("应用名称")
     @ColumnLen(20)
     private String appName;
 
+    @ColumnComment("负责人姓名")
     @ColumnLen(20)
     private String ownerName;
 

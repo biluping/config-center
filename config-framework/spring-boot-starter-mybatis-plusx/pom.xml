@@ -29,6 +29,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.config</groupId>
+            <artifactId>spring-boot-starter-sql</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

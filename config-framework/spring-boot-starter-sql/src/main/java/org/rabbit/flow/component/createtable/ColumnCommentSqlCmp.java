@@ -13,7 +13,7 @@ public class ColumnCommentSqlCmp extends ColumnSqlBuildCmp {
     @Override
     void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (ObjUtil.isNotNull(columnMetadata.getComment())&& StrUtil.isNotBlank(columnMetadata.getComment())){
-            sb.append(SqlKeywordEnum.COMMENT.getKeyword()).append(" ").append(columnMetadata.getComment());
+            sb.append(SqlKeywordEnum.COMMENT.getKeyword()).append(" '").append(columnMetadata.getComment()).append("'");
         }
     }
 

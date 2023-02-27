@@ -14,7 +14,7 @@ public class MetadataCommentCmp extends ColumnMetadataBuildCmp {
     void parse(ColumnMetadata columnMetadata, Field field) {
         ColumnComment columnCommentAnno = field.getAnnotation(ColumnComment.class);
         if (ObjectUtil.isNotNull(columnCommentAnno)){
-            columnMetadata.setDefaultValue(columnCommentAnno.value());
+            columnMetadata.setComment(columnCommentAnno.value());
         }
     }
 }

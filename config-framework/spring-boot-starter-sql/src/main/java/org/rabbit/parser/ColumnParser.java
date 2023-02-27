@@ -1,7 +1,6 @@
 package org.rabbit.parser;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.annotation.TableId;
 import org.rabbit.flow.FlowExecutor;
 import org.rabbit.metadata.ColumnMetadata;
 
@@ -32,12 +31,15 @@ public class ColumnParser {
         }
         // 遍历每个字段
         for (Field field : entity.getDeclaredFields()) {
-            if (field.isAnnotationPresent(TableId.class)){
-                continue;
-            }
             // 交由流程引擎解析
             ColumnMetadata columnMetadata = FlowExecutor.execute(TableParser.FLOW_NAME, new ColumnMetadata(), field);
-            list.add(columnMetadata);
+            // 如果是主键，放在最前
+            if (columnMetadata.getIsPrimaryKey()){
+                list.add(0, columnMetadata);
+            } else {
+                list.add(columnMetadata);
+            }
+
         }
         // 解析父类
         return doParse(entity.getSuperclass(), list);

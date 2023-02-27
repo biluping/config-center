@@ -36,15 +36,11 @@ public class SqlUtils {
 
         // 列 ddl 构建
         StringBuilder sb = new StringBuilder();
-
-        // 主键
-        FlowExecutor.execute(COLUMN_SQL_BUILD_FLOW, sb, tableMetadata.getPrimaryKeyMetadata());
-
-        // 其他列
         for (ColumnMetadata columnMetadata : tableMetadata.getColumnMetadataList()) {
-            sb.append(",\n");
             FlowExecutor.execute(COLUMN_SQL_BUILD_FLOW, sb, columnMetadata);
+            sb.append(",\n");
         }
+        sb.delete(sb.length()-2, sb.length());
 
         return StrUtil.format(CREATE_TABLE_TEMPLATE, tableMetadata.getTableName(), sb.toString());
     }

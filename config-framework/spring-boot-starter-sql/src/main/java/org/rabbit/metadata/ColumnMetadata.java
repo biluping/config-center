@@ -3,7 +3,7 @@ package org.rabbit.metadata;
 import lombok.Data;
 
 /**
- * 列信息，排除主键
+ * 列信息
  */
 @Data
 public class ColumnMetadata {
@@ -14,9 +14,24 @@ public class ColumnMetadata {
     private String columnName;
 
     /**
-     * 列类型
+     * java 列类型
      */
     private Class<?> columnClass;
+
+    /**
+     * jdbc 列类型
+     */
+    private String jdbcType;
+
+    /**
+     * 是否主键
+     */
+    private Boolean isPrimaryKey;
+
+    /**
+     * 是否自增
+     */
+    private Boolean isAutoIncrement;
 
     /**
      * 列长度

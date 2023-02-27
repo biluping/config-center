@@ -34,12 +34,6 @@
             <artifactId>spring-boot-starter-mybatis-plusx</artifactId>
             <version>1.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.config</groupId>
-            <artifactId>spring-boot-starter-sql</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 
     <build>
