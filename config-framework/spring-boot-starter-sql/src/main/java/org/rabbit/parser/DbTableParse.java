@@ -20,6 +20,7 @@ public class DbTableParse {
 
     private static final String QUERY_TABLE_INFO_SQL =
             "SELECT " +
+            "    TABLE_NAME AS 'table_name'," +
             "    COLUMN_NAME AS 'column_name'," +
             "    COLUMN_TYPE AS 'jdbc_type'," +
             "    !IS_NULLABLE AS 'is_not_null'," +

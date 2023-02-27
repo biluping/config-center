@@ -1,4 +1,4 @@
-package org.rabbit.run;
+package org.rabbit;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * springboot 启动时，从数据库拉取表结构信息，与项目实体类比较，如果有差异，则打印 ddl 语句
  */
-public class GetDbMetadataRunner implements ApplicationRunner {
+public class GenerateSqlRunner implements ApplicationRunner {
 
     @Resource
     private DbTableParse dbTableParse;
@@ -65,9 +65,24 @@ public class GetDbMetadataRunner implements ApplicationRunner {
             Map<String, ColumnMetadata> dbColumnMap = CollUtil.toMap(dbMetadata.getColumnMetadataList(), new HashMap<>(), ColumnMetadata::getColumnName);
             for (ColumnMetadata columnMetadata : tableMetadata.getColumnMetadataList()) {
                 ColumnMetadata dbColumnMetadata = dbColumnMap.get(columnMetadata.getColumnName());
+
+                // 表字段缺少，构造 add column sql
                 if (ObjUtil.isNull(dbColumnMetadata)){
                     System.err.println(SqlUtils.addColumnSql(columnMetadata));
                 }
+                // 表字段变化，构造 modify column sql
+                else if (ObjUtil.notEqual(columnMetadata, dbColumnMetadata)) {
+                    System.err.println(SqlUtils.modifyColumnSql(columnMetadata));
+                }
+
+                // 处理完，列从 map 中去除，最后留下来的是多余的列，需要被删除
+                dbColumnMap.remove(columnMetadata.getColumnName());
+            }
+
+            // 多余的字段，构造 drop column sql
+            for (Map.Entry<String, ColumnMetadata> entry : dbColumnMap.entrySet()) {
+                ColumnMetadata columnMetadata = entry.getValue();
+                System.err.println(SqlUtils.dropColumnSql(columnMetadata));
             }
         }
 

@@ -2,7 +2,6 @@ package org.rabbit;
 
 import org.rabbit.conf.SqlProperties;
 import org.rabbit.parser.DbTableParse;
-import org.rabbit.run.GetDbMetadataRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +14,8 @@ public class SqlBuildAutoConfiguration {
      * 用于 springboot 启动阶段，获取数据库表信息
      */
     @Bean
-    public GetDbMetadataRunner getDbMetadataRunner(){
-        return new GetDbMetadataRunner();
+    public GenerateSqlRunner getDbMetadataRunner(){
+        return new GenerateSqlRunner();
     }
 
     /**

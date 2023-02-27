@@ -15,8 +15,13 @@ import java.lang.annotation.Target;
 public @interface ColumnIndex {
 
     /**
+     * 索引名称
+     */
+    String value();
+
+    /**
      * 索引类型
      */
-    IndexEnum value();
+    IndexEnum type() default IndexEnum.NORMAL;
 
 }

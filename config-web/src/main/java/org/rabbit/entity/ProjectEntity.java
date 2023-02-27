@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.rabbit.annotations.ColumnComment;
+import org.rabbit.annotations.ColumnIndex;
 import org.rabbit.annotations.ColumnLen;
 
 @Data
@@ -15,6 +16,7 @@ public class ProjectEntity extends BaseEntity {
     @ColumnLen(20)
     private String appName;
 
+    @ColumnIndex("own_index")
     @ColumnComment("负责人姓名")
     @ColumnLen(20)
     private String ownerName;

@@ -1,8 +1,6 @@
 package org.rabbit.flow;
 
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 
 import java.util.*;
@@ -14,20 +12,6 @@ import java.util.function.BiConsumer;
 public class FlowExecutor {
 
     private static final Map<String, List<Object>> chain = new HashMap<>();
-
-    /**
-     * 添加流程，组件无序
-     * @param flowName 流程名称
-     * @param interfaceClass 组件接口名称
-     */
-    public static void addFlow(String flowName, Class<?> interfaceClass){
-        // 组件扫描
-        Set<Class<?>> classes = ClassUtil.scanPackage(ClassUtil.getPackage(interfaceClass),
-                c -> ObjectUtil.notEqual(interfaceClass, c) && interfaceClass.isAssignableFrom(c));
-
-        // 添加到流程中
-        addFlow(flowName, classes);
-    }
 
     /**
      * 添加流程，组件有序

@@ -1,15 +1,16 @@
-package org.rabbit.flow.component.sql;
+package org.rabbit.flow.component.sql.column;
 
 import org.rabbit.enums.SqlKeywordEnum;
+import org.rabbit.flow.component.sql.SqlBuildCmp;
 import org.rabbit.metadata.ColumnMetadata;
 
 /**
  * 自增拼接
  */
-public class ColumnAutoIncrementSqlCmp extends ColumnSqlBuildCmp {
+public class ColumnAutoIncrementSqlCmp extends SqlBuildCmp {
 
     @Override
-    void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (columnMetadata.getIsPrimaryKey() && columnMetadata.getIsAutoIncrement()){
             sb.append(SqlKeywordEnum.AUTO_INCREMENT.getKeyword()).append(" ");
         }
