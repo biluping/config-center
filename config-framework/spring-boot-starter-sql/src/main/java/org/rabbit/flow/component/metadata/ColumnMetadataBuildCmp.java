@@ -1,4 +1,4 @@
-package org.rabbit.flow.component.column;
+package org.rabbit.flow.component.metadata;
 
 import org.rabbit.metadata.ColumnMetadata;
 

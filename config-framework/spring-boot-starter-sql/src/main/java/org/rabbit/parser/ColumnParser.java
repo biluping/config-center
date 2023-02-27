@@ -1,6 +1,7 @@
 package org.rabbit.parser;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.rabbit.flow.FlowExecutor;
 import org.rabbit.metadata.ColumnMetadata;
 
@@ -17,22 +18,27 @@ public class ColumnParser {
      * 解析普通列信息
      */
     public static List<ColumnMetadata> parse(Class<?> entity){
-        return doParse(entity, new ArrayList<>());
+        TableName tableNameAnno = entity.getAnnotation(TableName.class);
+        return doParse(entity, tableNameAnno.value(), new ArrayList<>());
     }
 
 
     /**
      * 真正解析普通列信息的地方，递归往上调用
      */
-    private static List<ColumnMetadata> doParse(Class<?> entity, List<ColumnMetadata> list){
+    private static List<ColumnMetadata> doParse(Class<?> entity, String tableName, List<ColumnMetadata> list){
         // 校验
         if (ObjectUtil.isNull(entity) || entity.equals(Object.class)){
             return list;
         }
         // 遍历每个字段
         for (Field field : entity.getDeclaredFields()) {
+
+            // 考虑到无法从 entity 的父类的 Field 对象上拿到 @TableName 注解，所以这里直接设置了 tableName
+            ColumnMetadata columnMetadata = new ColumnMetadata();
+            columnMetadata.setTableName(tableName);
             // 交由流程引擎解析
-            ColumnMetadata columnMetadata = FlowExecutor.execute(TableParser.FLOW_NAME, new ColumnMetadata(), field);
+            FlowExecutor.execute(TableParser.FLOW_NAME, columnMetadata, field);
             // 如果是主键，放在最前
             if (columnMetadata.getIsPrimaryKey()){
                 list.add(0, columnMetadata);
@@ -42,6 +48,6 @@ public class ColumnParser {
 
         }
         // 解析父类
-        return doParse(entity.getSuperclass(), list);
+        return doParse(entity.getSuperclass(), tableName, list);
     }
 }

@@ -1,4 +1,4 @@
-package org.rabbit.flow.component.createtable;
+package org.rabbit.flow.component.sql;
 
 import org.rabbit.enums.SqlKeywordEnum;
 import org.rabbit.metadata.ColumnMetadata;

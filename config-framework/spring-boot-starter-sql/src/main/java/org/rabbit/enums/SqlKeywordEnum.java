@@ -8,7 +8,9 @@ public enum SqlKeywordEnum {
     DEFAULT("default"),
     PRIMARY_KEY("primary key"),
     COMMENT("comment"),
-    AUTO_INCREMENT("auto_increment");
+    AUTO_INCREMENT("auto_increment"),
+    ADD_COLUMN("alter table {} add column");
+
 
     private final String keyword;
 

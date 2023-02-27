@@ -9,6 +9,11 @@ import lombok.Data;
 public class ColumnMetadata {
 
     /**
+     * 表名
+     */
+    private String tableName;
+
+    /**
      * 列名称
      */
     private String columnName;

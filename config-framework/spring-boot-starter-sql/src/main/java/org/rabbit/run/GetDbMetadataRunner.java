@@ -1,9 +1,11 @@
 package org.rabbit.run;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ObjUtil;
 import org.rabbit.conf.SqlProperties;
+import org.rabbit.metadata.ColumnMetadata;
 import org.rabbit.metadata.TableMetadata;
 import org.rabbit.parser.DbTableParse;
 import org.rabbit.parser.TableParser;
@@ -12,6 +14,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,7 +59,16 @@ public class GetDbMetadataRunner implements ApplicationRunner {
             }
 
             // 表存在，比对字段内容
-            System.out.println();
+            // 1、字段相同、内容不同，修改
+            // 2、表字段多余，删除
+            // 3、表字段缺少，增加
+            Map<String, ColumnMetadata> dbColumnMap = CollUtil.toMap(dbMetadata.getColumnMetadataList(), new HashMap<>(), ColumnMetadata::getColumnName);
+            for (ColumnMetadata columnMetadata : tableMetadata.getColumnMetadataList()) {
+                ColumnMetadata dbColumnMetadata = dbColumnMap.get(columnMetadata.getColumnName());
+                if (ObjUtil.isNull(dbColumnMetadata)){
+                    System.err.println(SqlUtils.addColumnSql(columnMetadata));
+                }
+            }
         }
 
     }

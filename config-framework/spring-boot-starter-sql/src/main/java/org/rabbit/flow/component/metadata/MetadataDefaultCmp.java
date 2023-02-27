@@ -1,4 +1,4 @@
-package org.rabbit.flow.component.column;
+package org.rabbit.flow.component.metadata;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.rabbit.annotations.ColumnDefault;

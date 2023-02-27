@@ -1,4 +1,4 @@
-package org.rabbit.flow.component.createtable;
+package org.rabbit.flow.component.sql;
 
 import cn.hutool.core.util.ObjUtil;
 import org.rabbit.enums.SqlKeywordEnum;
