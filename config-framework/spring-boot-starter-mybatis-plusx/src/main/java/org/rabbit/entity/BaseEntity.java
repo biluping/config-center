@@ -10,7 +10,7 @@ import org.rabbit.annotations.ColumnDefault;
 import java.time.LocalDateTime;
 
 @Data
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @ColumnComment("主键id")
     @TableId(type = IdType.AUTO)

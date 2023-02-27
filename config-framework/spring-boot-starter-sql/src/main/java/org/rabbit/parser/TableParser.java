@@ -41,11 +41,4 @@ public class TableParser {
 
         return tableMetadata;
     }
-
-    /**
-     * 根据表名从数据库查询表信息并进行表信息解析
-     */
-    public static TableMetadata parse(String tableName){
-        return null;
-    }
 }

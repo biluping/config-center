@@ -5,7 +5,6 @@ import org.rabbit.flow.FlowExecutor;
 import org.rabbit.flow.component.createtable.*;
 import org.rabbit.metadata.ColumnMetadata;
 import org.rabbit.metadata.TableMetadata;
-import org.rabbit.parser.TableParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,7 @@ public class SqlUtils {
         FlowExecutor.addFlow(COLUMN_SQL_BUILD_FLOW, list);
     }
 
-    public static String createTableSql(Class<?> entity){
-        TableMetadata tableMetadata = TableParser.parse(entity);
+    public static String createTableSql(TableMetadata tableMetadata){
 
         // 列 ddl 构建
         StringBuilder sb = new StringBuilder();
@@ -40,6 +38,7 @@ public class SqlUtils {
             FlowExecutor.execute(COLUMN_SQL_BUILD_FLOW, sb, columnMetadata);
             sb.append(",\n");
         }
+        // 取出最后的换行
         sb.delete(sb.length()-2, sb.length());
 
         return StrUtil.format(CREATE_TABLE_TEMPLATE, tableMetadata.getTableName(), sb.toString());
