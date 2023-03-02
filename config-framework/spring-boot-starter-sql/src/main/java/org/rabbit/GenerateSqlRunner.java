@@ -38,7 +38,7 @@ public class GenerateSqlRunner implements ApplicationRunner {
 
         // 扫描实体类包，获取实体类元数据
         Set<Class<?>> entities = ClassUtil.scanPackage(sqlProperties.getBasePackage(), c -> !ClassUtil.isAbstract(c));
-        List<TableMetadata> tableMetadataList = entities.stream().map(TableParser::parse).collect(Collectors.toList());
+        List<TableMetadata> tableMetadataList = entities.stream().map(TableParser::parse).toList();
 
         // 查询数据库，获取表结构信息
         Map<String, TableMetadata> dbMetadataMap = tableMetadataList.stream()
@@ -58,7 +58,12 @@ public class GenerateSqlRunner implements ApplicationRunner {
                 continue;
             }
 
-            // 表存在，比对字段内容
+            // 比对表注释，不同则打印修改表注释语句
+            if (ObjUtil.notEqual(dbMetadata.getTableComment(), tableMetadata.getTableComment())){
+                System.err.println(SqlUtils.alterTableCommentSql(tableMetadata));
+            }
+
+            // 比对字段内容
             // 1、字段相同、内容不同，修改
             // 2、表字段多余，删除
             // 3、表字段缺少，增加

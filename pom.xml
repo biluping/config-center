@@ -21,12 +21,21 @@
         <module>config-framework/spring-boot-starter-mybatis-plusx</module>
         <module>config-common</module>
         <module>config-framework/spring-boot-starter-sql</module>
+        <module>config-framework/spring-boot-starter-knife4j</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
+        <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
+        <druid.version>1.2.15</druid.version>
+        <hutool-all.version>5.8.12</hutool-all.version>
+        <lombok.version>1.18.26</lombok.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <knife4j-openapi2-spring-boot-starter.version>4.0.0</knife4j-openapi2-spring-boot-starter.version>
+        <springdoc.version>1.6.14</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -35,39 +44,58 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.3.4</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
-                <version>3.4.3.4</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
 
             <!-- 数据库 -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.32</version>
+                <version>${mysql-connector-java.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.2.15</version>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 接口文档 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j-openapi2-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- tools -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.8.12</version>
+                <version>${hutool-all.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.26</version>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -79,4 +107,6 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
+
 </project>

@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-boot-starter-sql</artifactId>
+    <artifactId>spring-boot-starter-knife4j</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -20,19 +20,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-annotation</artifactId>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

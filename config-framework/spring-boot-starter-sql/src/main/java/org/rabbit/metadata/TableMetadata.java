@@ -16,6 +16,11 @@ public class TableMetadata {
     private String tableName;
 
     /**
+     * 表注释
+     */
+    private String tableComment;
+
+    /**
      * 列信息
      */
     private List<ColumnMetadata> columnMetadataList;

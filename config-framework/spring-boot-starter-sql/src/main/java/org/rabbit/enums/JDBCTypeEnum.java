@@ -14,6 +14,7 @@ public enum JDBCTypeEnum {
 
     VARCHAR(String.class, "varchar(%d)"),
     INT(Integer.class, "int"),
+    TINYINT(null, "tinyint"),
     BIGINT(Long.class, "bigint"),
     DATETIME(LocalDateTime.class, "datetime");
 

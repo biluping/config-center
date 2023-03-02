@@ -1,6 +1,7 @@
 package org.rabbit.sql;
 
 import cn.hutool.core.util.StrUtil;
+import org.rabbit.enums.SqlKeywordEnum;
 import org.rabbit.flow.FlowExecutor;
 import org.rabbit.flow.component.sql.column.*;
 import org.rabbit.flow.component.sql.index.NormalIndexCmp;
@@ -38,10 +39,6 @@ public class SqlUtils {
      */
     public static final String DROP_COLUMN_SQL_BUILD_FLOW = "drop-column-sql-build-flow";
 
-    /**
-     * 建表sql模板
-     */
-    private static final String CREATE_TABLE_TEMPLATE = "create table {} (\n{}\n);";
 
     // 初始化列 sql 构建流程
     static {
@@ -99,7 +96,7 @@ public class SqlUtils {
         // 删除最后的换行
         sb.delete(sb.length()-2, sb.length());
 
-        return StrUtil.format(CREATE_TABLE_TEMPLATE, tableMetadata.getTableName(), sb.toString());
+        return StrUtil.format(SqlKeywordEnum.CREATE_TABLE_TEMPLATE.getKeyword(), tableMetadata.getTableName(), sb.toString(), tableMetadata.getTableComment());
     }
 
     /**
@@ -124,5 +121,12 @@ public class SqlUtils {
     public static String dropColumnSql(ColumnMetadata columnMetadata){
         StringBuilder sb = FlowExecutor.execute(DROP_COLUMN_SQL_BUILD_FLOW, new StringBuilder(), columnMetadata);
         return sb.append(";").toString();
+    }
+
+    /**
+     * 构造修改表注释语句
+     */
+    public static String alterTableCommentSql(TableMetadata tableMetadata) {
+        return StrUtil.format(SqlKeywordEnum.ALTER_TABLE_COMMENT.getKeyword(), tableMetadata.getTableName(), tableMetadata.getTableComment());
     }
 }

@@ -13,7 +13,9 @@ public enum SqlKeywordEnum {
     AUTO_INCREMENT("auto_increment"),
     ADD_COLUMN("alter table {} add column"),
     MODIFY_COLUMN("alter table {} modify column"),
-    DROP_COLUMN("alter table {} drop column");
+    DROP_COLUMN("alter table {} drop column"),
+    CREATE_TABLE_TEMPLATE("create table {} (\n{}\n) comment '{}' ;"),
+    ALTER_TABLE_COMMENT("alter table {} COMMENT = '{}';");
 
 
     private final String keyword;

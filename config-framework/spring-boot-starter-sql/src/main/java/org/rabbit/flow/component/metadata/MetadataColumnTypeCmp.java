@@ -1,5 +1,6 @@
 package org.rabbit.flow.component.metadata;
 
+import org.rabbit.annotations.ColumnTinyint;
 import org.rabbit.enums.JDBCTypeEnum;
 import org.rabbit.metadata.ColumnMetadata;
 
@@ -17,5 +18,10 @@ public class MetadataColumnTypeCmp extends ColumnMetadataBuildCmp {
         // jdbc 类型
         String jdbcType = JDBCTypeEnum.getJdbcType(columnMetadata.getColumnClass(), columnMetadata.getLength());
         columnMetadata.setJdbcType(jdbcType);
+
+        // tinyint 类型特殊处理
+        if (field.isAnnotationPresent(ColumnTinyint.class)){
+            columnMetadata.setJdbcType(JDBCTypeEnum.TINYINT.getJdbcType());
+        }
     }
 }
