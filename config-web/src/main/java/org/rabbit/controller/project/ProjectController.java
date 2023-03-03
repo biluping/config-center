@@ -10,6 +10,7 @@ import org.rabbit.convert.ProjectConvert;
 import org.rabbit.service.ProjectService;
 import org.rabbit.vo.BasicResultVO;
 import org.rabbit.vo.PageResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,8 @@ public class ProjectController {
     }
 
     @Operation(summary = "查询项目")
-    @PostMapping("page")
-    public BasicResultVO<PageResult<ProjectPageVo>> getProjectPage(@Valid @RequestBody ProjectQueryReq req){
+    @GetMapping("page")
+    public BasicResultVO<PageResult<ProjectPageVo>> getProjectPage(@Valid ProjectQueryReq req){
         return success(ProjectConvert.INSTANCE.toPage(projectService.getProjectPage(req)));
     }
-
 }
