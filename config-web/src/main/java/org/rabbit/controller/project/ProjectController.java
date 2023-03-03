@@ -10,17 +10,15 @@ import org.rabbit.convert.ProjectConvert;
 import org.rabbit.service.ProjectService;
 import org.rabbit.vo.BasicResultVO;
 import org.rabbit.vo.PageResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import static org.rabbit.vo.BasicResultVO.success;
 
-@Tag(name = "项目")
+@Tag(name = "项目接口")
 @RestController
+@RequestMapping("/project")
 @AllArgsConstructor
 public class ProjectController {
 

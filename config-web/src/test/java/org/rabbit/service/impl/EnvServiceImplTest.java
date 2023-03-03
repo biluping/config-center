@@ -25,6 +25,6 @@ class EnvServiceImplTest {
     void testSave() {
         when(envMapper.exists(any(), any(), any(), any())).thenReturn(true);
 
-        Assertions.assertThrowsExactly(IllegalArgumentException.class, ()->envServiceImpl.save(1L, "envName"));
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, ()->envServiceImpl.createEnv(1L, "envName"));
     }
 }

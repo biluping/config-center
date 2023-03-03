@@ -7,6 +7,7 @@ import org.rabbit.service.EnvService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class EnvServiceImpl implements EnvService {
@@ -18,7 +19,7 @@ public class EnvServiceImpl implements EnvService {
      * 保存环境
      */
     @Override
-    public Long save(Long projectId, String envName) {
+    public Long createEnv(Long projectId, String envName) {
         // 参数校验
         boolean exists = envMapper.exists(EnvEntity::getProjectId, projectId, EnvEntity::getEnvName, envName);
         Assert.isFalse(exists, "projectId [{}] 下环境 [{}] 已存在，请勿重复创建", projectId, envName);
@@ -30,6 +31,14 @@ public class EnvServiceImpl implements EnvService {
         envMapper.insert(envEntity);
 
         return envEntity.getId();
+    }
+
+    /**
+     * 查询环境
+     */
+    @Override
+    public List<EnvEntity> envList(Long projectId) {
+        return envMapper.selectListOrderBy(EnvEntity::getProjectId, projectId);
     }
 
 }

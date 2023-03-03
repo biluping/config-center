@@ -1,0 +1,38 @@
+package org.rabbit.controller.env;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.rabbit.controller.env.req.EnvCreateReq;
+import org.rabbit.controller.env.vo.EnvVo;
+import org.rabbit.convert.EnvConvert;
+import org.rabbit.service.EnvService;
+import org.rabbit.vo.BasicResultVO;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.List;
+
+import static org.rabbit.vo.BasicResultVO.success;
+
+@Tag(name = "环境接口")
+@RequestMapping("/env")
+@RestController
+public class EnvController {
+
+    @Resource
+    private EnvService envService;
+
+    @Operation(summary = "创建环境")
+    @PostMapping("/create")
+    public BasicResultVO<Long> createEnv(@Valid @RequestBody EnvCreateReq req){
+        return success(envService.createEnv(req.getProjectId(), req.getEnvName()));
+    }
+
+    @Operation(summary = "查询环境")
+    @PostMapping("/list")
+    public BasicResultVO<List<EnvVo>> envList(@RequestParam Long projectId){
+        return success(EnvConvert.INSTANCE.toVo(envService.envList(projectId)));
+    }
+
+}

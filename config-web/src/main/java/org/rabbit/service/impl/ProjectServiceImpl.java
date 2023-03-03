@@ -38,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.insert(projectEntity);
 
         // 创建默认环境
-        envService.save(projectEntity.getId(), projectCreateReq.getEnvName());
+        envService.createEnv(projectEntity.getId(), projectCreateReq.getEnvName());
 
         return projectEntity.getId();
     }

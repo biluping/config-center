@@ -28,7 +28,7 @@ class ProjectServiceImplTest {
     @Test
     void testCreateProject() {
         when(projectMapper.exists(any(), any())).thenReturn(true);
-        when(envService.save(anyLong(), anyString())).thenReturn(Long.valueOf(1));
+        when(envService.createEnv(anyLong(), anyString())).thenReturn(Long.valueOf(1));
 
         ProjectCreateReq req = new ProjectCreateReq();
         req.setProjectName("moon");
