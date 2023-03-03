@@ -15,4 +15,14 @@ public interface EnvService {
      * 查询环境
      */
     List<EnvEntity> envList(Long projectId);
+
+    /**
+     * 删除整个项目环境
+     */
+    boolean deleteProjectEnv(Long projectId);
+
+    /**
+     * 删除单个环境
+     */
+    boolean deleteEnv(Long envId);
 }

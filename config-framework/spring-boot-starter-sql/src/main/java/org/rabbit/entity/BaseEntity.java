@@ -2,6 +2,7 @@ package org.rabbit.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import org.rabbit.annotations.ColumnComment;
 import org.rabbit.annotations.ColumnDefault;
@@ -25,5 +26,6 @@ public abstract class BaseEntity {
 
     @ColumnComment("逻辑删除,0-未删除,其他-已删除")
     @ColumnDefault("0")
+    @TableLogic
     private Long deleted;
 }

@@ -16,4 +16,9 @@ public interface ProjectService {
      * 查询项目
      */
     PageResult<ProjectEntity> getProjectPage(ProjectQueryReq req);
+
+    /**
+     * 删除项目
+     */
+    Boolean deleteProject(Long projectId);
 }

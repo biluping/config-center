@@ -41,4 +41,20 @@ public class EnvServiceImpl implements EnvService {
         return envMapper.selectListOrderBy(EnvEntity::getProjectId, projectId);
     }
 
+    /**
+     * 删除整个项目环境
+     */
+    @Override
+    public boolean deleteProjectEnv(Long projectId) {
+        return envMapper.logicDeleted(EnvEntity::getProjectId, projectId);
+    }
+
+    /**
+     * 删除单个环境
+     */
+    @Override
+    public boolean deleteEnv(Long envId) {
+        return envMapper.logicDeleted(EnvEntity::getId, envId);
+    }
+
 }

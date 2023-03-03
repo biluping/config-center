@@ -49,6 +49,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public PageResult<ProjectEntity> getProjectPage(ProjectQueryReq req) {
         return projectMapper.selectPage(req);
+    }
 
+    /**
+     * 删除项目
+     */
+    @Transactional
+    @Override
+    public Boolean deleteProject(Long projectId) {
+        envService.deleteProjectEnv(projectId);
+        projectMapper.logicDeleted(ProjectEntity::getId, projectId);
+        return true;
     }
 }
