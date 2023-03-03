@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
+@Schema(description = "项目创建请求")
 public class ProjectCreateReq {
 
     @Schema(description = "项目名称", required = true, example = "网关服务")

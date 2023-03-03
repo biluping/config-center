@@ -1,12 +1,8 @@
 package org.rabbit.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.rabbit.enums.RespStatusEnum;
-
-/**
- * @author zzb
- * @since 2021.11.17
- */
 
 @Getter
 @ToString(callSuper = true)
@@ -16,18 +12,18 @@ import org.rabbit.enums.RespStatusEnum;
 public final class BasicResultVO<T> {
 
     /**
-     * 响应状态
+     * 见 RespStatusEnum
      */
+    @Schema(description = "响应状态", required = true, example = "0")
     private String status;
 
     /**
-     * 响应编码
+     * 见 RespStatusEnum
      */
+    @Schema(description = "响应编码", required = true, example = "操作成功")
     private String msg;
 
-    /**
-     * 返回数据
-     */
+    @Schema(description = "返回数据", required = true, example = "10232")
     private T data;
 
     public BasicResultVO(String status, String msg) {

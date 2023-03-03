@@ -1,8 +1,12 @@
 package org.rabbit.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.rabbit.req.PageParam;
+import org.rabbit.vo.PageResult;
 
 public interface BaseMapperX<T> extends BaseMapper<T> {
 
@@ -17,5 +21,11 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         wrapper.eq(field1, value1);
         wrapper.eq(field2, value2);
         return exists(wrapper);
+    }
+
+    default PageResult<T> selectPage(PageParam pageParam, Wrapper<T> queryWrapper){
+        Page<T> page = new Page<>(pageParam.getPageNo(), pageParam.getPageSize());
+        selectPage(page, queryWrapper);
+        return new PageResult<>(page.getRecords(), page.getTotal());
     }
 }
