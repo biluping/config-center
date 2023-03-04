@@ -1,7 +1,6 @@
 package org.rabbit.metadata;
 
 import lombok.Data;
-import org.rabbit.annotations.ColumnIndex;
 
 import java.util.Objects;
 
@@ -62,9 +61,9 @@ public class ColumnMetadata {
     private String comment;
 
     /**
-     * 索引注解
+     * 索引信息
      */
-    private ColumnIndex columnIndexAnno;
+    private ColumnIndexMetadata indexMetadata;
 
     /**
      * 为什么重写？
@@ -73,8 +72,7 @@ public class ColumnMetadata {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ColumnMetadata)) return false;
-        ColumnMetadata that = (ColumnMetadata) o;
+        if (!(o instanceof ColumnMetadata that)) return false;
         return Objects.equals(tableName, that.tableName) &&
                 Objects.equals(columnName, that.columnName) &&
                 Objects.equals(jdbcType, that.jdbcType) &&

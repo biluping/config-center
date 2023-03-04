@@ -12,7 +12,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnCommentSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (ObjUtil.isNotNull(columnMetadata.getComment())&& StrUtil.isNotBlank(columnMetadata.getComment())){
             sb.append(SqlKeywordEnum.COMMENT.getKeyword()).append(" '").append(columnMetadata.getComment()).append("'");
         }

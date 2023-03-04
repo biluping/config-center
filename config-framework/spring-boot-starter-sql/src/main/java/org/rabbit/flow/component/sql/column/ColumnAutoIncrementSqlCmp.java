@@ -10,7 +10,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnAutoIncrementSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (columnMetadata.getIsPrimaryKey() && columnMetadata.getIsAutoIncrement()){
             sb.append(SqlKeywordEnum.AUTO_INCREMENT.getKeyword()).append(" ");
         }

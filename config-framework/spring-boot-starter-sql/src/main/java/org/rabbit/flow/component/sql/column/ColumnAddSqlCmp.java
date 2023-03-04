@@ -11,7 +11,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnAddSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         sb.append(StrUtil.format(SqlKeywordEnum.ADD_COLUMN.getKeyword(), columnMetadata.getTableName()));
         sb.append(" ");
     }

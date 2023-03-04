@@ -10,7 +10,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnNotNullSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (columnMetadata.getIsNotNull()){
             sb.append(SqlKeywordEnum.NOT_NULL.getKeyword()).append(" ");
         }

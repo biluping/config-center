@@ -3,6 +3,8 @@ package org.rabbit.parser;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
+import lombok.Data;
+import org.rabbit.metadata.ColumnIndexMetadata;
 import org.rabbit.metadata.ColumnMetadata;
 import org.rabbit.metadata.TableMetadata;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 数据库表结构解析
@@ -43,6 +46,8 @@ public class DbTableParse {
             "WHERE " +
             "   table_schema = '{}' and table_name = '{}';";
 
+    private static final String QUERY_TABLE_INDEX_SQL = "show index from {}";
+
     /**
      * 数据库名称缓存
      */
@@ -70,6 +75,13 @@ public class DbTableParse {
         if (CollUtil.isEmpty(columnMetadataList)){
             return null;
         }
+
+        // 表索引填充
+        List<ShowIndexTable> indexTableList = jdbcTemplate.query(StrUtil.format(QUERY_TABLE_INDEX_SQL, tableName), new BeanPropertyRowMapper<>(ShowIndexTable.class));
+        Map<String, ColumnIndexMetadata> indexMetadataMap = DbTableIndexParse.parse(indexTableList);
+        for (ColumnMetadata columnMetadata : columnMetadataList) {
+            columnMetadata.setIndexMetadata(indexMetadataMap.get(columnMetadata.getColumnName()));
+        }
         
         // 查询表注释
         String tableComment = jdbcTemplate.queryForObject(StrUtil.format(QUERY_TABLE_COMMENT_SQL, dbName, tableName), String.class);
@@ -83,4 +95,12 @@ public class DbTableParse {
         return tableMetadata;
     }
 
+    @Data
+    static class ShowIndexTable {
+        private String Table;
+        private Boolean Non_unique;
+        private String Key_name;
+        private Integer Seq_in_index;
+        private String Column_name;
+    }
 }

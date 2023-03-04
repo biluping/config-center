@@ -25,4 +25,9 @@ public interface EnvService {
      * 删除单个环境
      */
     boolean deleteEnv(Long envId);
+
+    /**
+     * 根据ID取
+     */
+    EnvEntity getById(Long envId);
 }

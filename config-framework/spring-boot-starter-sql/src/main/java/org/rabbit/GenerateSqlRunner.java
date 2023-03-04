@@ -63,7 +63,7 @@ public class GenerateSqlRunner implements ApplicationRunner {
                 System.err.println(SqlUtils.alterTableCommentSql(tableMetadata));
             }
 
-            // 比对字段内容
+            // 比对字段内容、比对索引
             // 1、字段相同、内容不同，修改
             // 2、表字段多余，删除
             // 3、表字段缺少，增加
@@ -78,6 +78,16 @@ public class GenerateSqlRunner implements ApplicationRunner {
                 // 表字段变化，构造 modify column sql
                 else if (ObjUtil.notEqual(columnMetadata, dbColumnMetadata)) {
                     System.err.println(SqlUtils.modifyColumnSql(columnMetadata));
+                }
+                // 如果代码有索引，db 无索引，则新增索引
+                else if (ObjUtil.isNull(dbColumnMetadata.getIndexMetadata()) && ObjUtil.isNotNull(columnMetadata.getIndexMetadata())){
+                    System.err.println(SqlUtils.addIndexSql(columnMetadata));
+                }
+                // 如果代码有索引，db 有索引，且两者不一致，则先删除索引，后增加索引
+                else if (ObjUtil.isNotNull(dbColumnMetadata.getIndexMetadata())&&ObjUtil.isNotNull(columnMetadata.getIndexMetadata())&&
+                        ObjUtil.notEqual(columnMetadata.getIndexMetadata(), dbColumnMetadata.getIndexMetadata())){
+                    System.err.println(SqlUtils.dropIndexSql(columnMetadata));
+                    System.err.println(SqlUtils.addIndexSql(columnMetadata));
                 }
 
                 // 处理完，列从 map 中去除，最后留下来的是多余的列，需要被删除

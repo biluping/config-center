@@ -24,4 +24,13 @@ public @interface ColumnIndex {
      */
     IndexEnum type() default IndexEnum.NORMAL;
 
+    /**
+     * 索引长度
+     */
+    int len() default 0;
+
+    /**
+     * 联合索引字段(包括本字段)
+     */
+    String[] otherFields() default {};
 }

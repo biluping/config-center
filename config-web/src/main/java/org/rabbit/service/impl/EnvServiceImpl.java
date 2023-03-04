@@ -57,4 +57,12 @@ public class EnvServiceImpl implements EnvService {
         return envMapper.logicDeleted(EnvEntity::getId, envId);
     }
 
+    /**
+     * 根据ID取
+     */
+    @Override
+    public EnvEntity getById(Long envId) {
+        return envMapper.selectOne(EnvEntity::getId, envId);
+    }
+
 }

@@ -21,4 +21,9 @@ public interface ProjectService {
      * 删除项目
      */
     Boolean deleteProject(Long projectId);
+
+    /**
+     * 根据id获取
+     */
+    ProjectEntity getById(Long projectId);
 }

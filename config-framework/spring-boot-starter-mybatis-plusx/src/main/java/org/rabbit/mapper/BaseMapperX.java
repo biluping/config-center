@@ -16,6 +16,8 @@ import java.util.Map;
 
 public interface BaseMapperX<T> extends BaseMapper<T> {
 
+    // ********************************** exists 相关方法 **********************************
+
     default boolean exists(SFunction<T, ?> field, Object value) {
         LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(field, value);
@@ -29,6 +31,16 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         return exists(wrapper);
     }
 
+
+    // ********************************** select 相关方法 **********************************
+
+
+    default T selectOne(SFunction<T, ?> field, Object value) {
+        LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(field, value);
+        return selectOne(wrapper);
+    }
+
     default PageResult<T> selectPage(PageParam pageParam, Wrapper<T> queryWrapper){
         Page<T> page = new Page<>(pageParam.getPageNo(), pageParam.getPageSize());
         selectPage(page, queryWrapper);
@@ -39,10 +51,12 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().eq(field, value).orderByDesc(field));
     }
 
+    // ********************************** 逻辑删除相关方法 **********************************
+
+
     default boolean logicDeleted(SFunction<T, ?> field, Long val){
         return update(null, new LambdaUpdateWrapper<T>().eq(field, val).setSql("deleted = id")) == 1;
     }
-
 
 
     // ********************************** 禁用 delete 相关方法 **********************************

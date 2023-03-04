@@ -37,8 +37,8 @@ public class ProjectController {
     }
 
     @Operation(summary = "查询项目")
-    @GetMapping("page")
-    public BasicResultVO<PageResult<ProjectPageVo>> getProjectPage(@Valid ProjectQueryReq req){
+    @PostMapping("page")
+    public BasicResultVO<PageResult<ProjectPageVo>> getProjectPage(@Valid @RequestBody ProjectQueryReq req){
         return success(ProjectConvert.INSTANCE.toPage(projectService.getProjectPage(req)));
     }
 

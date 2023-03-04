@@ -11,7 +11,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnDropSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         sb.append(StrUtil.format(SqlKeywordEnum.DROP_COLUMN.getKeyword(), columnMetadata.getTableName()));
         sb.append(" ");
     }

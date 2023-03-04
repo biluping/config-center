@@ -11,7 +11,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnDefaultSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (ObjUtil.isNotNull(columnMetadata.getDefaultValue())) {
             sb.append(SqlKeywordEnum.DEFAULT.getKeyword())
                     .append(" ")

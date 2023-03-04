@@ -9,7 +9,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class ColumnTypeSqlCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         sb.append(columnMetadata.getJdbcType()).append(" ");
     }
 

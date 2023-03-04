@@ -61,4 +61,12 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.logicDeleted(ProjectEntity::getId, projectId);
         return true;
     }
+
+    /**
+     * 根据 ID 获取
+     */
+    @Override
+    public ProjectEntity getById(Long projectId) {
+        return projectMapper.selectOne(ProjectEntity::getId, projectId);
+    }
 }

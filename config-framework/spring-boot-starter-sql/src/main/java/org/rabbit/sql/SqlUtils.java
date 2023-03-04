@@ -1,12 +1,14 @@
 package org.rabbit.sql;
 
 import cn.hutool.core.util.StrUtil;
+import org.rabbit.enums.IndexEnum;
 import org.rabbit.enums.SqlKeywordEnum;
 import org.rabbit.flow.FlowExecutor;
 import org.rabbit.flow.component.sql.column.*;
 import org.rabbit.flow.component.sql.index.NormalIndexCmp;
 import org.rabbit.flow.component.sql.index.PrimaryKeyIndexCmp;
 import org.rabbit.flow.component.sql.index.UniqueIndexCmp;
+import org.rabbit.metadata.ColumnIndexMetadata;
 import org.rabbit.metadata.ColumnMetadata;
 import org.rabbit.metadata.TableMetadata;
 
@@ -128,5 +130,37 @@ public class SqlUtils {
      */
     public static String alterTableCommentSql(TableMetadata tableMetadata) {
         return StrUtil.format(SqlKeywordEnum.ALTER_TABLE_COMMENT.getKeyword(), tableMetadata.getTableName(), tableMetadata.getTableComment());
+    }
+
+    /**
+     * 新增索引(普通、唯一)
+     */
+    public static String addIndexSql(ColumnMetadata columnMetadata) {
+        ColumnIndexMetadata indexMetadata = columnMetadata.getIndexMetadata();
+
+        // `field1(10)`,`field2`......
+        StringBuilder sb = new StringBuilder();
+        for (String c : indexMetadata.getFields()) {
+            sb.append(",`").append(c).append("`");
+        }
+
+        // 删除最前面的逗号
+        sb.deleteCharAt(0);
+        String fieldStr = sb.toString();
+
+        // 索引长度拼接
+        if (indexMetadata.getLen() > 0){
+            fieldStr = fieldStr.replace(columnMetadata.getColumnName(), columnMetadata.getColumnName() + "(" + indexMetadata.getLen() + ")");
+        }
+
+        String sqlTemplate = indexMetadata.getIndexEnum()== IndexEnum.NORMAL ? SqlKeywordEnum.ADD_INDEX.getKeyword() : SqlKeywordEnum.ADD_UNIQUE_INDEX.getKeyword();
+        return StrUtil.format(sqlTemplate, columnMetadata.getTableName(), indexMetadata.getIndexName(), fieldStr);
+    }
+
+    /**
+     * 删除索引
+     */
+    public static String dropIndexSql(ColumnMetadata columnMetadata) {
+        return StrUtil.format(SqlKeywordEnum.DROP_INDEX.getKeyword(), columnMetadata.getTableName(), columnMetadata.getIndexMetadata().getIndexName());
     }
 }

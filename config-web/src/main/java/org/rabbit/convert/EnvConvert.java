@@ -12,9 +12,6 @@ public interface EnvConvert {
 
     EnvConvert INSTANCE = Mappers.getMapper(EnvConvert.class);
 
-//    @Mapping(source = "projectName", target = "name")
-//    ProjectEntity toEntity(ProjectCreateReq req);
-
     List<EnvVo> toVo(List<EnvEntity> entity);
 
 }

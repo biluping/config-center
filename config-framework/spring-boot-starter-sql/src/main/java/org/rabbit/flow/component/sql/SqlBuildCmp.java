@@ -9,10 +9,10 @@ import java.util.function.BiConsumer;
  */
 public abstract class SqlBuildCmp implements BiConsumer<StringBuilder, ColumnMetadata> {
 
-    protected abstract void parse(StringBuilder sb, ColumnMetadata columnMetadata);
+    protected abstract void build(StringBuilder sb, ColumnMetadata columnMetadata);
 
     @Override
     public void accept(StringBuilder sb, ColumnMetadata columnMetadata) {
-        parse(sb, columnMetadata);
+        build(sb, columnMetadata);
     }
 }

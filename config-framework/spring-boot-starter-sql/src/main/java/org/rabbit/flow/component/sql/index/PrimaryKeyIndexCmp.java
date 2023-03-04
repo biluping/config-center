@@ -11,7 +11,7 @@ import org.rabbit.metadata.ColumnMetadata;
 public class PrimaryKeyIndexCmp extends SqlBuildCmp {
 
     @Override
-    protected void parse(StringBuilder sb, ColumnMetadata columnMetadata) {
+    protected void build(StringBuilder sb, ColumnMetadata columnMetadata) {
         if (columnMetadata.getIsPrimaryKey()){
             sb.append("\t").append(StrUtil.format(SqlKeywordEnum.PRIMARY_KEY.getKeyword(), columnMetadata.getColumnName()));
             sb.append(",\n");
