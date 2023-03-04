@@ -3,6 +3,7 @@ package org.rabbit.controller.config;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.rabbit.controller.config.req.ConfigCreateReq;
+import org.rabbit.controller.config.req.ConfigQueryHistoryReq;
 import org.rabbit.controller.config.req.ConfigQueryReq;
 import org.rabbit.controller.config.vo.ConfigVo;
 import org.rabbit.convert.ConfigConvert;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 import static org.rabbit.vo.BasicResultVO.success;
 
@@ -37,6 +39,12 @@ public class ConfigController {
     @PostMapping("page")
     public BasicResultVO<PageResult<ConfigVo>> getConfigPage(@Valid @RequestBody ConfigQueryReq req){
         return success(ConfigConvert.INSTANCE.toPage(configService.getConfigPage(req)));
+    }
+
+    @Operation(summary = "查询 key 的历史发布版本")
+    @PostMapping("versions")
+    public BasicResultVO<List<ConfigVo>> getHistoryConfig(@Valid @RequestBody ConfigQueryHistoryReq req){
+        return success(ConfigConvert.INSTANCE.toVo(configService.getHistoryConfig(req)));
     }
 
     @Operation(summary = "删除配置")

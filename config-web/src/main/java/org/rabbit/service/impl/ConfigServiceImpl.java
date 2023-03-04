@@ -3,6 +3,7 @@ package org.rabbit.service.impl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjUtil;
 import org.rabbit.controller.config.req.ConfigCreateReq;
+import org.rabbit.controller.config.req.ConfigQueryHistoryReq;
 import org.rabbit.controller.config.req.ConfigQueryReq;
 import org.rabbit.convert.ConfigConvert;
 import org.rabbit.entity.ConfigEntity;
@@ -16,6 +17,7 @@ import org.rabbit.vo.PageResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ConfigServiceImpl implements ConfigService {
@@ -70,5 +72,13 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public Boolean deleteConfig(Long configId) {
         return configMapper.logicDeleted(ConfigEntity::getId, configId);
+    }
+
+    /**
+     * 查询 key 的历史发布版本
+     */
+    @Override
+    public List<ConfigEntity> getHistoryConfig(ConfigQueryHistoryReq req) {
+        return configMapper.getHistoryConfig(req.getEnvId(), req.getConfigKey());
     }
 }

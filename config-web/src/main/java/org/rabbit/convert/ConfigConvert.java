@@ -7,6 +7,8 @@ import org.rabbit.controller.config.vo.ConfigVo;
 import org.rabbit.entity.ConfigEntity;
 import org.rabbit.vo.PageResult;
 
+import java.util.List;
+
 @Mapper
 public interface ConfigConvert {
 
@@ -15,4 +17,6 @@ public interface ConfigConvert {
     ConfigEntity toEntity(ConfigCreateReq req);
 
     PageResult<ConfigVo> toPage(PageResult<ConfigEntity> pageResult);
+
+    List<ConfigVo> toVo(List<ConfigEntity> list);
 }

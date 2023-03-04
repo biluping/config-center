@@ -1,9 +1,12 @@
 package org.rabbit.service;
 
 import org.rabbit.controller.config.req.ConfigCreateReq;
+import org.rabbit.controller.config.req.ConfigQueryHistoryReq;
 import org.rabbit.controller.config.req.ConfigQueryReq;
 import org.rabbit.entity.ConfigEntity;
 import org.rabbit.vo.PageResult;
+
+import java.util.List;
 
 public interface ConfigService {
 
@@ -21,4 +24,9 @@ public interface ConfigService {
      * 删除配置
      */
     Boolean deleteConfig(Long configId);
+
+    /**
+     * 查询 key 的历史发布版本
+     */
+    List<ConfigEntity> getHistoryConfig(ConfigQueryHistoryReq req);
 }
