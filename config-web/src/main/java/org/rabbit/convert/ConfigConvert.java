@@ -16,6 +16,8 @@ public interface ConfigConvert {
 
     ConfigEntity toEntity(ConfigCreateReq req);
 
+    ConfigCreateReq toCreateReq(ConfigEntity entity);
+
     PageResult<ConfigVo> toPage(PageResult<ConfigEntity> pageResult);
 
     List<ConfigVo> toVo(List<ConfigEntity> list);

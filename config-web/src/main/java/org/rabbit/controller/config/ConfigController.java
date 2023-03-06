@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.rabbit.controller.config.req.ConfigCreateReq;
 import org.rabbit.controller.config.req.ConfigQueryHistoryReq;
 import org.rabbit.controller.config.req.ConfigQueryReq;
+import org.rabbit.controller.config.req.ConfigUpdateReq;
 import org.rabbit.controller.config.vo.ConfigVo;
 import org.rabbit.convert.ConfigConvert;
 import org.rabbit.service.ConfigService;
@@ -51,6 +52,12 @@ public class ConfigController {
     @DeleteMapping("delete")
     public BasicResultVO<Boolean> deleteConfig(@NotNull(message = "配置id不能为空") @RequestParam Long configId){
         return success(configService.deleteConfig(configId));
+    }
+
+    @Operation(summary = "更新配置")
+    @PutMapping("update")
+    public BasicResultVO<Boolean> updateConfig(@Valid @RequestBody ConfigUpdateReq req){
+        return success(configService.updateConfig(req));
     }
 
 }

@@ -27,9 +27,6 @@ public class ProjectController {
     @Resource
     private ProjectService projectService;
 
-    /**
-     * 创建项目
-     */
     @Operation(summary = "创建项目")
     @PostMapping("create")
     public BasicResultVO<Long> createProject(@Valid @RequestBody ProjectCreateReq projectCreateReq){

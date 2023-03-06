@@ -14,16 +14,16 @@ public final class BasicResultVO<T> {
     /**
      * 见 RespStatusEnum
      */
-    @Schema(description = "响应状态", required = true, example = "0")
+    @Schema(description = "响应状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "0")
     private String status;
 
     /**
      * 见 RespStatusEnum
      */
-    @Schema(description = "响应编码", required = true, example = "操作成功")
+    @Schema(description = "响应编码", requiredMode = Schema.RequiredMode.REQUIRED, example = "操作成功")
     private String msg;
 
-    @Schema(description = "返回数据", required = true, example = "10232")
+    @Schema(description = "返回数据", example = "10232", nullable = true)
     private T data;
 
     public BasicResultVO(String status, String msg) {

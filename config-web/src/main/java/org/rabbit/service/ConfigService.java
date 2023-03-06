@@ -3,6 +3,7 @@ package org.rabbit.service;
 import org.rabbit.controller.config.req.ConfigCreateReq;
 import org.rabbit.controller.config.req.ConfigQueryHistoryReq;
 import org.rabbit.controller.config.req.ConfigQueryReq;
+import org.rabbit.controller.config.req.ConfigUpdateReq;
 import org.rabbit.entity.ConfigEntity;
 import org.rabbit.vo.PageResult;
 
@@ -29,4 +30,9 @@ public interface ConfigService {
      * 查询 key 的历史发布版本
      */
     List<ConfigEntity> getHistoryConfig(ConfigQueryHistoryReq req);
+
+    /**
+     * 更新配置
+     */
+    Boolean updateConfig(ConfigUpdateReq req);
 }
