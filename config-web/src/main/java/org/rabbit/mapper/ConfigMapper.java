@@ -28,4 +28,9 @@ public interface ConfigMapper extends BaseMapperX<ConfigEntity> {
      */
     @Select("select * from config_kv where env_id = #{envId} and config_key = #{configKey} and is_apply = 1 order by version desc")
     List<ConfigEntity> getHistoryConfig(Long envId, String configKey);
+
+    default List<ConfigEntity> selectAllApply(Long envId){
+        return selectList(new LambdaQueryWrapperX<ConfigEntity>().eq(ConfigEntity::getEnvId, envId)
+                .eq(ConfigEntity::getIsApply, true));
+    }
 }

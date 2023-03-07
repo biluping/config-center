@@ -13,6 +13,7 @@ import org.rabbit.vo.BasicResultVO;
 import org.rabbit.vo.PageResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -40,6 +41,12 @@ public class ConfigController {
     @PostMapping("page")
     public BasicResultVO<PageResult<ConfigVo>> getConfigPage(@Valid @RequestBody ConfigQueryReq req){
         return success(ConfigConvert.INSTANCE.toPage(configService.getConfigPage(req)));
+    }
+
+    @Operation(summary = "客户端查询配置")
+    @GetMapping("client")
+    public DeferredResult<BasicResultVO<List<ConfigVo>>> client(@NotNull(message = "环境id不能为空") @RequestParam Long envId){
+        return configService.client(envId);
     }
 
     @Operation(summary = "查询 key 的历史发布版本")
